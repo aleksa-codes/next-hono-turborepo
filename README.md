@@ -1,4 +1,4 @@
-# ⚡ Next.js + Hono Starter Template
+# 🚀 Next.js + Hono Starter Template
 
 A minimal and clean monorepo starter template featuring a Next.js 15 frontend and a high-performance Hono backend.
 
@@ -82,6 +82,8 @@ Scripts are run from within their respective workspace directories.
 ### Backend (`/backend`)
 
 - `bun run dev`: Starts the development server with live reload.
+- `bun run build`: Builds the backend application for production.
+- `bun run start`: Starts the production server (requires running `build` first).
 
 ## Contributing
 
