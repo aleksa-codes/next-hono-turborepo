@@ -1,0 +1,8 @@
+{
+  "name": "next-hono-start",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ]
+}

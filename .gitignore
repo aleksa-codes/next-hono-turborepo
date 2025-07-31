@@ -1,0 +1,63 @@
+# =================================================================
+# Root & Global Ignores
+# =================================================================
+
+# Dependency directories
+# This is the most important rule for a monorepo
+node_modules/
+
+# Lockfiles from other package managers
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Environment variables
+# Never commit secrets!
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# Log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDE & Editor directories
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# =================================================================
+# Frontend Specific (Next.js)
+# =================================================================
+
+frontend/.next/
+frontend/out/
+
+# =================================================================
+# Backend Specific (Hono/Node)
+# =================================================================
+
+backend/dist/
+
+# =================================================================
+# Other
+# =================================================================
+
+# TurboRepo cache
+.turbo
+
+# Test results
+coverage/
