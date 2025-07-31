@@ -14,7 +14,7 @@ export default function Home() {
         <div className='flex items-center gap-4'>
           <Button asChild>
             <a href='https://github.com/aleksa-codes/next-hono-start' target='_blank' rel='noopener noreferrer'>
-              <Github className='mr-2 size-4' />
+              <Github />
               <span>GitHub</span>
             </a>
           </Button>
