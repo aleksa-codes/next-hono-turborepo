@@ -31,8 +31,8 @@ This template is for those who want a robust, decoupled architecture with a ligh
 First, clone the repository. The `bun install` command will use Bun Workspaces to install dependencies for the entire monorepo (`frontend` and `backend`).
 
 ```bash
-git clone https://github.com/your-username/next-hono-start
-cd next-hono-start
+git clone https://github.com/aleksa-codes/next-hono-turborepo
+cd next-hono-turborepo
 bun install
 ```
 
@@ -87,7 +87,7 @@ Some scripts are specific to a single workspace and should be run from within th
 
 ```bash
 cd frontend
-bun run shadcn
+bun shadcn add button
 ```
 
 ## Contributing
