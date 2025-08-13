@@ -7,18 +7,19 @@
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "deps": "bun x taze@latest --interactive"
   },
   "dependencies": {
-    "@hono/node-server": "^1.18.0",
+    "@hono/node-server": "^1.18.2",
     "dotenv": "^17.2.1",
-    "hono": "^4.8.10"
+    "hono": "^4.9.1"
   },
   "devDependencies": {
-    "@types/node": "^24.1.0",
+    "@types/node": "^24.2.1",
     "prettier": "^3.6.2",
     "prettier-plugin-organize-imports": "^4.2.0",
-    "tsx": "^4.20.3",
-    "typescript": "^5.8.3"
+    "tsx": "^4.20.4",
+    "typescript": "^5.9.2"
   }
 }
