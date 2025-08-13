@@ -1,12 +1,16 @@
 # 🚀 Next.js + Hono Starter Template
 
-A minimal and clean monorepo starter template featuring a Next.js 15 frontend and a high-performance Hono backend.
+A minimal and clean monorepo starter template featuring a Next.js 15 frontend and a high-performance Hono backend, **supercharged with [Turborepo](https://turbo.build/repo)**.
 
-This template is for those who want a robust, decoupled architecture from the start. It combines the excellent frontend experience of the `next-start` template with a separate, modern API layer using Hono, all managed within a single repository using Bun Workspaces.
+This template is for those who want a robust, decoupled architecture with a lightning-fast development experience. It combines the excellent frontend features of Next.js with a modern Hono API, all managed efficiently within a single repository.
 
 ## Core Features
 
-- 📦 **Monorepo Ready:** Organized with Bun Workspaces for easy management of frontend and backend code.
+- ⚡️ **Turborepo:** A high-performance build system for monorepos. It provides:
+  - **Task Caching:** Never build or test the same code twice.
+  - **Parallel Execution:** Run scripts across all your packages in parallel.
+  - **Simplified Commands:** Manage the entire monorepo from the root.
+- 📦 **Bun Workspaces:** Organized with Bun for easy management of frontend and backend code.
 - 🚀 **Next.js 15 Frontend:** The latest version of the popular React framework for the UI.
 - 🚄 **Hono Backend:** A separate, high-performance backend powered by Hono, the fast, lightweight, and modern web framework for building APIs.
 - ✨ **Decoupled Architecture:** Promotes clean separation of concerns between your UI and your API logic, making the project more scalable and maintainable.
@@ -24,7 +28,7 @@ This template is for those who want a robust, decoupled architecture from the st
 
 ### 1. Clone & Install
 
-First, clone the repository. The `bun install` command will read the root `package.json` and install dependencies for the entire monorepo (`frontend` and `backend`).
+First, clone the repository. The `bun install` command will use Bun Workspaces to install dependencies for the entire monorepo (`frontend` and `backend`).
 
 ```bash
 git clone https://github.com/your-username/next-hono-start
@@ -34,56 +38,57 @@ bun install
 
 ### 2. Set Up Environment Variables
 
-This project uses a `.env.local` file for environment variables. Create one in the `/frontend` directory for the Next.js app.
+This project uses `.env` files for environment variables. You can start by copying the examples:
+
+In the `/frontend` directory, create `.env.local`:
 
 ```bash
 # In /frontend/.env.local
 NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
 ```
 
-You can also create a `.env.local` in the `/backend` directory for any backend-specific keys (like `OPENAI_API_KEY`).
+In the `/backend` directory, create `.env` for any backend-specific keys (like database URLs or API keys):
+
+```bash
+# In /backend/.env
+DATABASE_URL="your-database-connection-string"
+```
 
 ### 3. Run the Development Servers
 
-This monorepo contains two services. You'll need to run them in **separate terminal windows**.
-
-**Terminal 1: Start the Backend Server**
+Thanks to **Turborepo**, you can run both the frontend and backend development servers with a **single command** from the root directory.
 
 ```bash
-cd backend
+# From the root directory of the project
 bun run dev
 ```
 
-Your Hono backend will be running on `http://localhost:8000`.
+Turborepo will start both services in parallel.
 
-**Terminal 2: Start the Frontend Server**
-
-```bash
-# From the root directory
-cd frontend
-bun run dev
-```
-
-Open `http://localhost:3000` with your browser to see the result.
+- Your Next.js frontend will be available at `http://localhost:3000`.
+- Your Hono backend will be running on `http://localhost:8000`.
 
 ## Available Scripts
 
-Scripts are run from within their respective workspace directories.
+All primary commands should be run from the **root** of the monorepo.
 
-### Frontend (`/frontend`)
+| Command          | Description                                                                   |
+| :--------------- | :---------------------------------------------------------------------------- |
+| `bun run dev`    | Starts the development servers for both `frontend` and `backend` in parallel. |
+| `bun run build`  | Builds both applications for production, respecting the dependency graph.     |
+| `bun run lint`   | Lints the code in all workspaces.                                             |
+| `bun run format` | Formats the code in all workspaces using Prettier.                            |
 
-- `bun run dev`: Starts the development server.
-- `bun run build`: Builds the application for production.
-- `bun run start`: Starts the production server.
-- `bun run lint`: Lints the code using ESLint.
-- `bun run format`: Formats the code using Prettier.
-- `bun run shadcn`: Adds new shadcn/ui components.
+### Workspace-Specific Scripts
 
-### Backend (`/backend`)
+Some scripts are specific to a single workspace and should be run from within that directory. The most common example is adding new UI components.
 
-- `bun run dev`: Starts the development server with live reload.
-- `bun run build`: Builds the backend application for production.
-- `bun run start`: Starts the production server (requires running `build` first).
+**To add a new shadcn/ui component:**
+
+```bash
+cd frontend
+bun run shadcn
+```
 
 ## Contributing
 
