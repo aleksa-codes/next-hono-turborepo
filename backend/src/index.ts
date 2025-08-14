@@ -25,7 +25,7 @@ app.get('/api/test', (c) => {
   });
 });
 
-const port = 8000;
+const port = Number(process.env.PORT) || 8000;
 console.log(`✅ Hono server is running on http://localhost:${port}`);
 
 serve({
