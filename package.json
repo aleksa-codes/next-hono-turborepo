@@ -1,7 +1,7 @@
 {
   "name": "next-hono-turborepo",
   "private": true,
-  "packageManager": "bun@1.2.18",
+  "packageManager": "bun@1.2.20",
   "workspaces": [
     "frontend",
     "backend"
