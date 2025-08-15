@@ -1,19 +1,18 @@
 {
   "name": "next-hono-turborepo",
   "private": true,
-  "packageManager": "bun@1.2.20",
   "workspaces": [
-    "frontend",
-    "backend"
+    "apps/*"
   ],
-  "devDependencies": {
-    "turbo": "^2.5.5"
-  },
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "turbo run format",
     "test": "turbo run test"
-  }
+  },
+  "devDependencies": {
+    "turbo": "^2.5.5"
+  },
+  "packageManager": "bun@1.2.20"
 }
