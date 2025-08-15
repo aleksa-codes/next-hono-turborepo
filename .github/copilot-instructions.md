@@ -2,86 +2,55 @@
 
 ## Project Architecture
 
-This is a **workspace monorepo** with strict separation between frontend and backend:
+This is a **workspace monorepo** with a strict separation between the web frontend and the API backend.
 
-- **Frontend**: Next.js 15 + React 19 with React Compiler, Tailwind CSS 4, shadcn/ui components
-- **Backend**: Hono.js API server with Node.js adapter
-- **Package Manager**: Bun (not npm/yarn) - always use `bun` commands
-- **Environment**: CORS-enabled communication between services at localhost:3000 ↔ localhost:8000
-
-## Development Workflow
-
-### Key Commands
-
-- `bun run dev` - Development servers with live reload
-- `bun run format` - Prettier formatting (frontend only)
-- `bun run shadcn` - Add shadcn/ui components (frontend)
-- `bun x taze@latest --interactive` - Update dependencies
+- **Web Frontend (`apps/web`)**: Next.js 15 + React 19 with React Compiler, Tailwind CSS, shadcn/ui components.
+- **API Backend (`apps/api`)**: Hono.js API server running on the Node.js adapter.
+- **Package Manager**: Bun (not npm/yarn) - always use `bun` commands.
+- **Environment**: CORS is enabled for communication between `http://localhost:3000` (web) and `http://localhost:8000` (api).
 
 ## Code Patterns & Conventions
 
 ### API Communication
 
-- Backend routes: `/api/*` prefix (e.g., `/api/test`)
-- Frontend calls: Use `process.env.NEXT_PUBLIC_API_BASE_URL` + route
-- CORS configured for `localhost:3000` origin in `backend/src/index.ts`
+- Backend routes are prefixed with `/api/*` (e.g., `/api/users`).
+- Frontend API calls must use the environment variable `process.env.NEXT_PUBLIC_API_BASE_URL` to construct the full URL.
+- CORS is pre-configured for the development origin in `apps/api/src/index.ts`.
 
-### Frontend Structure
+### Frontend Structure (`apps/web`)
 
-- **Pages**: Avoid using `'use client'` in server components/pages, prefer client components for interactivity
-- **Components**: Use shadcn/ui components (`@/components/ui/`)
-- **Styling**: Tailwind CSS with `cn()` utility from `@/lib/utils`
-- **State**: Client components with `'use client'` directive for interactivity
-- **Icons**: Lucide React icons preferred
-- **TypeScript**: Strict mode enabled, use proper typing
-- **Text**: Escape special characters in JSX (&apos;, &quot;, &gt;, &#125;) to prevent lint errors
+- **Pages**: Avoid using `'use client'` in server components/pages. Create separate client components for interactivity and import them.
+- **Components**: Use shadcn/ui components from `@/components/ui/` where possible. Custom components go in `@/components/`.
+- **Styling**: Use Tailwind CSS utility classes. For conditional classes, use the `cn()` utility from `@/lib/utils`.
+- **State & Interactivity**: Create client components by adding the `'use client'` directive at the top of the file.
+- **Icons**: Use icons from the `lucide-react` package.
+- **TypeScript**: Strict mode is enabled. Always use proper typing for props, state, and API responses.
+- **Text**: Escape special characters in JSX (&apos;, &quot;, &gt;, &#125;) to prevent lint errors.
 
-### Backend Structure
+### Backend Structure (`apps/api`)
 
-- **Framework**: Hono.js with `@hono/node-server` adapter
-- **Routing**: RESTful API routes under `/api/*`
-- **CORS**: Pre-configured for frontend origin, modify for production
-- **Build**: TypeScript compilation to `dist/` directory
+- **Framework**: Hono.js using the `@hono/node-server` adapter.
+- **Routing**: Define all API routes within `apps/api/src/index.ts`. Follow RESTful conventions.
 
 ## File Organization
 
-### Frontend (`/frontend`)
+### Web Frontend (`/apps/web`)
 
-- `src/app/` - Next.js App Router pages
-- `src/components/` - Reusable components
-- `src/components/ui/` - shadcn/ui components
-- `src/lib/` - Utilities and helpers
-- `components.json` - shadcn/ui configuration (New York style)
+- `src/app/` - Next.js App Router pages and layouts.
+- `src/components/` - Custom, reusable React components.
+- `src/components/ui/` - shadcn/ui components (managed by the CLI).
+- `src/lib/` - Utility functions and helpers (e.g., `utils.ts`).
 
-### Backend (`/backend`)
+### API Backend (`/apps/api`)
 
-- `src/index.ts` - Main server entry point
-- `dist/` - Compiled JavaScript output
-- Uses ES modules (`"type": "module"`)
-
-## Tech Stack Specifics
-
-### Next.js Configuration
-
-- **React Compiler**: Enabled experimentally in `next.config.ts`
-- **Path Aliases**: `@/*` maps to `src/*`
-- **Styling**: Tailwind CSS 4 with CSS variables in `globals.css`
-
-### Bun Workspace
-
-- Root `package.json` defines workspaces: `["frontend", "backend"]`
-- Install from root runs for all workspaces
-- Scripts must be run from respective workspace directories
-
-### Environment Variables
-
-- Frontend: `NEXT_PUBLIC_API_BASE_URL=http://localhost:8000` in `/frontend/.env.local`
-- Backend: Optional `.env.local` for API keys
+- `src/index.ts` - The main server entry point where all Hono routes are defined.
+- `dist/` - Compiled JavaScript output (do not edit directly).
 
 ## Common Tasks
 
-- **Add UI Component**: `cd frontend && bun run shadcn add <component>`
-- **API Route**: Add to `backend/src/index.ts` under `/api/*` pattern
-- **Client Component**: Add `'use client'` for browser-only features
-- **Styling**: Use Tailwind classes, `cn()` for conditional styles
-- **CORS Issues**: Check origin configuration in `backend/src/index.ts`
+- **Add a UI Component**: `cd apps/web && bun shadcn add <component-name>`
+- **Create a new API Route**: Add a new route handler (e.g., `app.get(...)`) to the `app` instance in `apps/api/src/index.ts`.
+- **Create an Interactive Component**: Create a new file in `apps/web/src/components`, and add `'use client'` as the very first line.
+- **Install a Dependency**: To add a dependency to a specific app, use the `--workspace` flag from the root:
+  - `bun add lucide-react --workspace @repo/web`
+  - `bun add zod --workspace @repo/api`
