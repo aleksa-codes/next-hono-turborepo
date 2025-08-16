@@ -9,7 +9,7 @@ const app = new Hono();
 app.use(
   '/api/*',
   cors({
-    origin: 'http://localhost:3000', // The origin of your Next.js app
+    origin: process.env.WEB_BASE_URL ?? 'http://localhost:3000',
     allowHeaders: ['Content-Type', 'Authorization'],
     allowMethods: ['POST', 'GET', 'OPTIONS'],
     maxAge: 600,
