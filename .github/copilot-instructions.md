@@ -4,33 +4,45 @@
 
 This is a **workspace monorepo** with a strict separation between the web frontend and the API backend.
 
-- **Web Frontend (`apps/web`)**: Next.js 15 + React 19 with React Compiler, Tailwind CSS, shadcn/ui components.
+- **Web Frontend (`apps/web`)**: Next.js 15 + React 19, Tailwind CSS, shadcn/ui components.
 - **API Backend (`apps/api`)**: Hono.js API server running on the Node.js adapter.
-- **Package Manager**: Bun (not npm/yarn) - always use `bun` commands.
+- **Package Manager**: Bun - always use `bun` commands.
+- **Testing Framework**: Vitest is used for both `web` and `api` workspaces.
 - **Environment**: CORS is enabled for communication between `http://localhost:3000` (web) and `http://localhost:8000` (api).
 
 ## Code Patterns & Conventions
 
 ### API Communication
 
-- Backend routes are prefixed with `/api/*` (e.g., `/api/users`).
-- Frontend API calls must use the environment variable `process.env.NEXT_PUBLIC_API_BASE_URL` to construct the full URL.
-- CORS is pre-configured for the development origin in `apps/api/src/index.ts`.
+- Backend routes are prefixed with `/api/*`.
+- Frontend API calls must use `process.env.NEXT_PUBLIC_API_BASE_URL`.
+- CORS is pre-configured in `apps/api/src/index.ts`.
 
 ### Frontend Structure (`apps/web`)
 
-- **Pages**: Avoid using `'use client'` in server components/pages. Create separate client components for interactivity and import them.
-- **Components**: Use shadcn/ui components from `@/components/ui/` where possible. Custom components go in `@/components/`.
-- **Styling**: Use Tailwind CSS utility classes. For conditional classes, use the `cn()` utility from `@/lib/utils`.
-- **State & Interactivity**: Create client components by adding the `'use client'` directive at the top of the file.
+- **Pages**: Avoid `'use client'` in server components; prefer separate client components.
+- **Components**: Use shadcn/ui from `@/components/ui/` where possible.
+- **Styling**: Use Tailwind CSS utility classes with the `cn()` utility.
+- **State & Interactivity**: Use `'use client'` directive for interactive components.
 - **Icons**: Use icons from the `lucide-react` package.
-- **TypeScript**: Strict mode is enabled. Always use proper typing for props, state, and API responses.
+- **TypeScript**: Strict mode is enabled; always use proper typing.
 - **Text**: Escape special characters in JSX (&apos;, &quot;, &gt;, &#125;) to prevent lint errors.
 
 ### Backend Structure (`apps/api`)
 
 - **Framework**: Hono.js using the `@hono/node-server` adapter.
-- **Routing**: Define all API routes within `apps/api/src/index.ts`. Follow RESTful conventions.
+- **Routing**: Define all API routes within `apps/api/src/index.ts`. Routes must be chained for type-safety in tests.
+
+### **Testing Conventions**
+
+- **Frontend (`apps/web`):**
+  - Use **React Testing Library** (`@testing-library/react`).
+  - Focus on user behavior (finding elements with `screen` and interacting with `userEvent`).
+  - **Mock API calls** using `vi.spyOn(global, 'fetch')`. Do not make real network requests in tests.
+  - Test files are located in `src/__tests__/`.
+- **Backend (`apps/api`):**
+  - Use **Hono's `testClient`** from `hono/testing` for type-safe requests.
+  - Test files are **colocated** with the source code (e.g., `src/index.test.ts`).
 
 ## File Organization
 
@@ -38,19 +50,20 @@ This is a **workspace monorepo** with a strict separation between the web fronte
 
 - `src/app/` - Next.js App Router pages and layouts.
 - `src/components/` - Custom, reusable React components.
-- `src/components/ui/` - shadcn/ui components (managed by the CLI).
-- `src/lib/` - Utility functions and helpers (e.g., `utils.ts`).
+- `src/components/ui/` - shadcn/ui components.
+- `src/__tests__/` - Vitest and React Testing Library tests.
+- `src/lib/` - Utility functions and helpers.
 
 ### API Backend (`/apps/api`)
 
-- `src/index.ts` - The main server entry point where all Hono routes are defined.
-- `dist/` - Compiled JavaScript output (do not edit directly).
+- `src/index.ts` - Main server entry point and Hono routes.
+- `src/index.test.ts` - Colocated Vitest tests for the API.
 
 ## Common Tasks
 
 - **Add a UI Component**: `cd apps/web && bun shadcn add <component-name>`
-- **Create a new API Route**: Add a new route handler (e.g., `app.get(...)`) to the `app` instance in `apps/api/src/index.ts`.
-- **Create an Interactive Component**: Create a new file in `apps/web/src/components`, and add `'use client'` as the very first line.
-- **Install a Dependency**: To add a dependency to a specific app, use the `--workspace` flag from the root:
-  - `bun add lucide-react --workspace @repo/web`
-  - `bun add zod --workspace @repo/api`
+- **Create an API Route**: Add a chained route handler (e.g., `.get(...)`) to the `app` instance in `apps/api/src/index.ts`.
+- **Write a Component Test**: Create a file in `apps/web/src/__tests__/`. Use `render`, `screen`, and `userEvent`. Mock any `fetch` calls.
+- **Install a Dependency**: To add a dependency to a specific app, from the root:
+  - `cd apps/web && bun add lucide-react`
+  - `cd apps/api && bun add zod`

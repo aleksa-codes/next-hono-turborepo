@@ -1,5 +1,4 @@
 import js from '@eslint/js';
-import importX from 'eslint-plugin-import-x';
 import nodePlugin from 'eslint-plugin-n';
 import tseslint from 'typescript-eslint';
 
@@ -16,7 +15,6 @@ export default tseslint.config(
   {
     plugins: {
       '@typescript-eslint': tseslint.plugin,
-      'import-x': importX,
     },
     languageOptions: {
       globals: {
@@ -43,15 +41,6 @@ export default tseslint.config(
       'no-process-exit': 'off',
       'no-useless-escape': 'off',
       'prefer-const': ['warn', { destructuring: 'all' }],
-      'import-x/consistent-type-specifier-style': ['error', 'prefer-top-level'],
-      'import-x/order': [
-        'error',
-        {
-          groups: ['external', 'builtin', 'internal', 'parent', 'sibling', 'index'],
-          alphabetize: { order: 'asc', caseInsensitive: true },
-        },
-      ],
-      'import-x/no-duplicates': 'error',
       'n/no-missing-import': 'off',
       'n/no-missing-require': 'off',
       'n/no-deprecated-api': 'off',
