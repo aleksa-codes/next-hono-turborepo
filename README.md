@@ -1,6 +1,6 @@
-# 🚀 Next.js + Hono Starter Template
+# 🚀 Next.js 16 + Hono Starter Template
 
-A minimal and clean monorepo starter template featuring a Next.js 15 frontend and a high-performance Hono backend, **supercharged with [Turborepo](https://turbo.build/repo)**.
+A minimal and clean monorepo starter template featuring a Next.js 16 frontend and a high-performance Hono backend, **supercharged with [Turborepo](https://turbo.build/repo)**.
 
 This template is for those who want a robust, decoupled architecture with a lightning-fast development experience. It combines the excellent frontend features of Next.js with a modern Hono API, all managed efficiently within a single repository.
 
@@ -11,7 +11,7 @@ This template is for those who want a robust, decoupled architecture with a ligh
   - **Parallel Execution:** Run scripts across all your apps in parallel.
   - **Simplified Commands:** Manage the entire monorepo from the root.
 - 📦 **Bun Workspaces:** Organized with Bun for easy management of web and api code.
-- 🚀 **Next.js 15 Frontend:** The latest version of the popular React framework for the UI.
+- 🚀 **Next.js 16 Frontend:** The latest version of the popular React framework for the UI.
 - 🚄 **Hono Backend:** A separate, high-performance backend powered by Hono, the fast, lightweight, and modern web framework for building APIs.
 - ✅ **Ready for Testing:** Pre-configured with Vitest for a fast and modern unit testing experience.
   - **Frontend:** React Testing Library for user-centric component tests.

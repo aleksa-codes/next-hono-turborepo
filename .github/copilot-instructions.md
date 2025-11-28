@@ -1,10 +1,10 @@
-# Next.js 15 + Hono.js AI Coding Agent Instructions
+# Next.js 16 + Hono.js AI Coding Agent Instructions
 
 ## Project Architecture
 
 This is a **workspace monorepo** with a strict separation between the web frontend and the API backend.
 
-- **Web Frontend (`apps/web`)**: Next.js 15 + React 19, Tailwind CSS, shadcn/ui components.
+- **Web Frontend (`apps/web`)**: Next.js 16 + React 19, Tailwind CSS, shadcn/ui components.
 - **API Backend (`apps/api`)**: Hono.js API server running on the Node.js adapter.
 - **Package Manager**: Bun - always use `bun` commands.
 - **Testing Framework**: Vitest is used for both `web` and `api` workspaces.
