@@ -1,9 +1,9 @@
-
-# Git files
+# Git
 .git
 .github
+.gitignore
 
-# Local dependencies
+# Dependencies
 node_modules
 */node_modules
 
@@ -12,15 +12,51 @@ node_modules
 */.next
 dist
 */dist
+build
+*/build
 
-# Turbo files
+# Turbo
 .turbo
 out
 
-# Env files
+# Environment variables
 .env
 .env.*
 !/.env.example
 
-# OS files
+# Logs and Lockfiles (other package managers)
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+# Keep bun.lock
+
+# IDEs
+.vscode
+.idea
+
+# Testing
+coverage
+*/coverage
+__tests__
+*/__tests__
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+
+# Docker
+docker-compose.*
+Dockerfile*
+*/Dockerfile*
+
+# Misc
 .DS_Store
+*.pem
+*.key
+README.md
+LICENSE
+*.tsbuildinfo
