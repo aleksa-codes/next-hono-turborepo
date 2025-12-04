@@ -4,10 +4,10 @@ services:
     build:
       context: .
       dockerfile: ./apps/api/Dockerfile
-    restart: always
+    restart: unless-stopped
   web:
     container_name: web
     build:
       context: .
       dockerfile: ./apps/web/Dockerfile
-    restart: always
+    restart: unless-stopped
