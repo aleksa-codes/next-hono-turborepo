@@ -33,6 +33,11 @@ This is a **workspace monorepo** with a strict separation between the web fronte
 - **Framework**: Hono.js using the `@hono/node-server` adapter.
 - **Routing**: Define all API routes within `apps/api/src/index.ts`. Routes must be chained for type-safety in tests.
 
+### Shadcn/UI
+
+- shadcn/ui has these components available: Accordion, Alert, Alert Dialog, Aspect Ratio, Avatar, Badge, Breadcrumb, Button, Button Group, Chart, Calendar, Card, Carousel, Checkbox, Collapsible, Combobox, Command, Context Menu, Data Table, Date Picker, Dialog, Drawer, Dropdown Menu, Empty, Field, Form, Hover Card, Input, Input Group, Input OTP, Item, Kbd, Label, Menubar, Native Select, Navigation Menu, Pagination, Popover, Progress, Radio Group, Resizable, Scroll Area, Select, Separator, Sheet, Sidebar, Skeleton, Slider, Sonner, Spinner, Switch, Table, Tabs, Textarea, Toast, Toggle, Toggle Group, Tooltip.
+- To add a shadcn/ui component, run `bun shadcn add <component-name>` from the `apps/web` directory. This will add the component to `src/components/ui/` and make it available for import from `@/components/ui/`. Always prefer using shadcn/ui components when possible for consistency.
+
 ### **Testing Conventions**
 
 - **Frontend (`apps/web`):**
