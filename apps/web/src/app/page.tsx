@@ -1,6 +1,6 @@
 import { HonoApiTester } from '@/components/hono-api-tester';
 import { Button } from '@/components/ui/button';
-import { Github } from 'lucide-react';
+import { TerminalIcon } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -8,13 +8,13 @@ export default function Home() {
       <div className='container flex flex-col items-center justify-center gap-6 px-4 md:px-6'>
         <h1 className='text-center text-4xl font-bold tracking-tight md:text-5xl'>Next.js + Hono Start</h1>
         <p className='text-muted-foreground max-w-xl text-center text-lg'>
-          A monorepo starter with a Next.js 15 frontend featuring Tailwind CSS, shadcn/ui, and the React Compiler,
+          A monorepo starter with a Next.js 16 frontend featuring Tailwind CSS, shadcn/ui, and the React Compiler,
           paired with a high-performance Hono backend.
         </p>
         <div className='flex items-center gap-4'>
           <Button asChild>
             <a href='https://github.com/aleksa-codes/next-hono-start' target='_blank' rel='noopener noreferrer'>
-              <Github />
+              <TerminalIcon />
               <span>GitHub</span>
             </a>
           </Button>
