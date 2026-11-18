@@ -1,74 +1,17 @@
-# Next.js 16 + Hono.js AI Coding Agent Instructions
+# AGENTS.md
 
-## Project Architecture
+Bun workspace monorepo. `apps/web` is the Next.js frontend; `apps/api` is the
+Hono API running on Node. Turborepo orchestrates both.
 
-This is a **workspace monorepo** with a strict separation between the web frontend and the API backend.
+- Install from the root and keep a single root `bun.lock`. For dependency
+  changes, target the workspace by name (`web` or `api`). Use
+  `bun update --latest --recursive` from the root for coordinated upgrades.
+- Both apps pin TypeScript to 6.0.3 for lint compatibility. The root
+  `zod-validation-error` override keeps the React Hooks ESLint plugin working.
+- `bun run dev` starts both apps. `bun run build`, `bun run test`, and
+  `bun run format` run the corresponding task in both apps.
+- `bun run lint` auto-fixes files. Use `bun x turbo run lint -- --no-fix` for
+  read-only lint. Run `bun x tsc --noEmit` in each app to check types.
 
-- **Web Frontend (`apps/web`)**: Next.js 16 + React 19, Tailwind CSS, shadcn/ui components.
-- **API Backend (`apps/api`)**: Hono.js API server running on the Node.js adapter.
-- **Package Manager**: Bun - always use `bun` commands.
-- **Testing Framework**: Vitest is used for both `web` and `api` workspaces.
-- **Environment**: CORS is enabled for communication between `http://localhost:3000` (web) and `http://localhost:8000` (api).
-
-## Code Patterns & Conventions
-
-### API Communication
-
-- Backend routes are prefixed with `/api/*`.
-- Frontend API calls must use `process.env.NEXT_PUBLIC_API_BASE_URL`.
-- CORS is pre-configured in `apps/api/src/index.ts`.
-
-### Frontend Structure (`apps/web`)
-
-- **Pages**: Avoid `'use client'` in server components; prefer separate client components.
-- **Components**: Use shadcn/ui from `@/components/ui/` where possible.
-- **Styling**: Use Tailwind CSS utility classes with the `cn()` utility.
-- **State & Interactivity**: Use `'use client'` directive for interactive components.
-- **Icons**: Use icons from the `lucide-react` package.
-- **TypeScript**: Strict mode is enabled; always use proper typing.
-- **Text**: Escape special characters in JSX (&apos;, &quot;, &gt;, &#125;) to prevent lint errors.
-
-### Backend Structure (`apps/api`)
-
-- **Framework**: Hono.js using the `@hono/node-server` adapter.
-- **Routing**: Define all API routes within `apps/api/src/index.ts`. Routes must be chained for type-safety in tests.
-
-### Shadcn/UI
-
-- shadcn/ui has these components available: Accordion, Alert, Alert Dialog, Aspect Ratio, Avatar, Badge, Breadcrumb, Button, Button Group, Chart, Calendar, Card, Carousel, Checkbox, Collapsible, Combobox, Command, Context Menu, Data Table, Date Picker, Dialog, Drawer, Dropdown Menu, Empty, Field, Form, Hover Card, Input, Input Group, Input OTP, Item, Kbd, Label, Menubar, Native Select, Navigation Menu, Pagination, Popover, Progress, Radio Group, Resizable, Scroll Area, Select, Separator, Sheet, Sidebar, Skeleton, Slider, Sonner, Spinner, Switch, Table, Tabs, Textarea, Toast, Toggle, Toggle Group, Tooltip.
-- To add a shadcn/ui component, run `bun shadcn add <component-name>` from the `apps/web` directory. This will add the component to `src/components/ui/` and make it available for import from `@/components/ui/`. Always prefer using shadcn/ui components when possible for consistency.
-
-### **Testing Conventions**
-
-- **Frontend (`apps/web`):**
-  - Use **React Testing Library** (`@testing-library/react`).
-  - Focus on user behavior (finding elements with `screen` and interacting with `userEvent`).
-  - **Mock API calls** using `vi.spyOn(global, 'fetch')`. Do not make real network requests in tests.
-  - Test files are located in `src/__tests__/`.
-- **Backend (`apps/api`):**
-  - Use **Hono's `testClient`** from `hono/testing` for type-safe requests.
-  - Test files are **colocated** with the source code (e.g., `src/index.test.ts`).
-
-## File Organization
-
-### Web Frontend (`/apps/web`)
-
-- `src/app/` - Next.js App Router pages and layouts.
-- `src/components/` - Custom, reusable React components.
-- `src/components/ui/` - shadcn/ui components.
-- `src/__tests__/` - Vitest and React Testing Library tests.
-- `src/lib/` - Utility functions and helpers.
-
-### API Backend (`/apps/api`)
-
-- `src/index.ts` - Main server entry point and Hono routes.
-- `src/index.test.ts` - Colocated Vitest tests for the API.
-
-## Common Tasks
-
-- **Add a UI Component**: `cd apps/web && bun shadcn add <component-name>`
-- **Create an API Route**: Add a chained route handler (e.g., `.get(...)`) to the `app` instance in `apps/api/src/index.ts`.
-- **Write a Component Test**: Create a file in `apps/web/src/__tests__/`. Use `render`, `screen`, and `userEvent`. Mock any `fetch` calls.
-- **Install a Dependency**: To add a dependency to a specific app, from the root:
-  - `cd apps/web && bun add lucide-react`
-  - `cd apps/api && bun add zod`
+Also read [web instructions](apps/web/AGENTS.md) or
+[API instructions](apps/api/AGENTS.md) when working inside an app.
